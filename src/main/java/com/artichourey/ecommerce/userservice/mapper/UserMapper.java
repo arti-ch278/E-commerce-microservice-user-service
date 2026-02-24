@@ -18,7 +18,7 @@ public class UserMapper {
 	}
 	public User toEntity(UserCreateRequestDto dto) {
 		return User.builder().name(dto.getName()).email(dto.getEmail()).
-		password(passwordEncoder.encode(dto.getPassword())).phone(dto.getPhone()).roles("USER_ROLE").build();
+		password(passwordEncoder.encode(dto.getPassword())).phone(dto.getPhone()).roles(dto.getRole()).build();
 	}
 	
 	
