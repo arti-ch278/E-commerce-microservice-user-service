@@ -3,6 +3,7 @@ package com.artichourey.ecommerce.userservice.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,7 +41,7 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body(resp);
 	}
 	@GetMapping("/{id}")
-	public ResponseEntity<UserResponseDto> getById(@PathVariable Long id){
+	public ResponseEntity<UserResponseDto> getById(@PathVariable Long id, Authentication authentication){
 		UserResponseDto dto =userService.getById(id);
 		return ResponseEntity.ok(dto);
 		
