@@ -12,7 +12,6 @@ import com.artichourey.ecommerce.userservice.dto.LoginRequestDto;
 import com.artichourey.ecommerce.userservice.dto.LoginResponseDto;
 import com.artichourey.ecommerce.userservice.dto.UserCreateRequestDto;
 import com.artichourey.ecommerce.userservice.dto.UserResponseDto;
-
 import com.artichourey.ecommerce.userservice.entity.User;
 import com.artichourey.ecommerce.userservice.exception.ResourceAlreadyExistsException;
 import com.artichourey.ecommerce.userservice.exception.ResourceNotFoundException;

@@ -32,6 +32,6 @@ public class UserCreateRequestDto {
     private String password;
     
     @NotBlank(message = "Role is required")
-    private String role;             //"USER_ROLE" And "ADMIN_ROLE"
+    private String roles;             //"USER_ROLE" And "ADMIN_ROLE"
 
 }
