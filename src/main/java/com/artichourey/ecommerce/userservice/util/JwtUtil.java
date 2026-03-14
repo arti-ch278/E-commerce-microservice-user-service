@@ -1,19 +1,14 @@
 package com.artichourey.ecommerce.userservice.util;
 
-
 import java.util.Date;
-
-
 import javax.crypto.SecretKey;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
+import com.artichourey.ecommerce.userservice.enums.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-
 
 
 @Component
@@ -27,12 +22,12 @@ public class JwtUtil {
 		this.key=Keys.hmacShaKeyFor(secret.getBytes());
 		this.jwtExpirationMs=jwtExpirationMs;
 	}
-	public String generateTokens(Long userId, String email, String roles) {
+	public String generateTokens(Long userId, String email, Role role) {
 		long now=System.currentTimeMillis();
 		return Jwts.builder()
 		.subject(String.valueOf(userId))
 		.claim("email", email)
-		.claim("roles", roles)
+		.claim("role", role.name())
 		.issuedAt(new Date(now))
 		.expiration(new Date(now + jwtExpirationMs))
 		.signWith(key)
