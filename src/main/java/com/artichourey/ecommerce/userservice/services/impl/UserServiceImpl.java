@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserService {
 			
 		}
 		
-		String token= jwtUtil.generateTokens(user.getId(), user.getEmail(),user.getRoles());
+		String token= jwtUtil.generateTokens(user.getId(), user.getEmail(),user.getRole());
 		log.info("User logged in successfully: {}", dto.getEmail());
 		return authMapper.toLoginResponse(user, token);
 		
