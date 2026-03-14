@@ -19,6 +19,7 @@ import com.artichourey.ecommerce.userservice.dto.LoginRequestDto;
 import com.artichourey.ecommerce.userservice.dto.LoginResponseDto;
 import com.artichourey.ecommerce.userservice.dto.UserCreateRequestDto;
 import com.artichourey.ecommerce.userservice.dto.UserResponseDto;
+import com.artichourey.ecommerce.userservice.enums.Role;
 import com.artichourey.ecommerce.userservice.service.UserService;
 import com.artichourey.ecommerce.userservice.util.JwtUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -45,9 +46,9 @@ public class UserControllerTest {
         request.setName("jam");
         request.setEmail("jam@test.com");
         request.setPassword("123");
-        request.setRoles("USER_ROLE");
         request.setPhone("1234567890");
         request.setPassword("123456");
+        request.setRole(Role.ROLE_USER);
         
 
         UserResponseDto response = new UserResponseDto();

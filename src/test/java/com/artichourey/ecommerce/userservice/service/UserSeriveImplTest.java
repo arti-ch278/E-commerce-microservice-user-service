@@ -24,6 +24,7 @@ import com.artichourey.ecommerce.userservice.dto.LoginResponseDto;
 import com.artichourey.ecommerce.userservice.dto.UserCreateRequestDto;
 import com.artichourey.ecommerce.userservice.dto.UserResponseDto;
 import com.artichourey.ecommerce.userservice.entity.User;
+import com.artichourey.ecommerce.userservice.enums.Role;
 import com.artichourey.ecommerce.userservice.exception.ResourceAlreadyExistsException;
 import com.artichourey.ecommerce.userservice.exception.ResourceNotFoundException;
 import com.artichourey.ecommerce.userservice.mapper.AuthMapper;
@@ -63,7 +64,7 @@ public class UserSeriveImplTest {
 	                .name("Jam")
 	                .email("jam@test.com")
 	                .password("encodedPass")
-	                .roles("USER_ROLE")
+	                .role(Role.ROLE_USER)
 	                .build();
 
 	        createDto = new UserCreateRequestDto();
@@ -101,6 +102,7 @@ public class UserSeriveImplTest {
 
 	    @Test
 	    void login_ShouldReturnToken_WhenCredentialsValid() {
+
 	        LoginRequestDto loginDto = new LoginRequestDto();
 	        loginDto.setEmail("jam@test.com");
 	        loginDto.setPassword("123");
@@ -111,18 +113,20 @@ public class UserSeriveImplTest {
 	        when(passwordEncoder.matches(loginDto.getPassword(), user.getPassword()))
 	                .thenReturn(true);
 
-	        when(jwtUtil.generateTokens(anyLong(), anyString(), anyString()))
+	        when(jwtUtil.generateTokens(anyLong(), anyString(), any(Role.class)))
 	                .thenReturn("mocked-jwt-token");
 
 	        LoginResponseDto loginResponse = new LoginResponseDto();
+
 	        when(authMapper.toLoginResponse(user, "mocked-jwt-token"))
 	                .thenReturn(loginResponse);
 
 	        LoginResponseDto result = userService.login(loginDto);
 
 	        assertNotNull(result);
+
 	        verify(jwtUtil, times(1))
-	                .generateTokens(user.getId(), user.getEmail(), user.getRoles());
+	                .generateTokens(user.getId(), user.getEmail(), user.getRole());
 	    }
 	    
 	    @Test

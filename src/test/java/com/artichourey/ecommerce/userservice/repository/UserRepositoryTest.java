@@ -12,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import com.artichourey.ecommerce.userservice.entity.User;
+import com.artichourey.ecommerce.userservice.enums.Role;
 
 @DataJpaTest
 @ActiveProfiles("test")
@@ -29,7 +30,7 @@ class UserRepositoryTest {
                 .name("Jam")
                 .email("jam@test.com")
                 .password("encodedPassword")
-                .roles("USER_ROLE")
+                .role(Role.ROLE_USER)
                 .phone("1234567899")
                 .build();
 
@@ -51,7 +52,7 @@ class UserRepositoryTest {
                 .name("Aliya")
                 .email("aliya@test.com")
                 .password("encodedPassword")
-                .roles("USER_ROLE")
+                .role(Role.ROLE_USER)
                 .phone("1234567890")
                 
                 .build();
