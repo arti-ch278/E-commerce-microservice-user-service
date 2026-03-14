@@ -1,8 +1,13 @@
 package com.artichourey.ecommerce.userservice.entity;
 
 import java.time.Instant;
+
+import com.artichourey.ecommerce.userservice.enums.Role;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -34,7 +39,8 @@ public class User {
 	@Column(nullable=false)
 	private String password;
 	
-	private String roles;
+	@Enumerated(EnumType.STRING)
+    private Role role;
 	
 	
 	private Instant createdAt;
