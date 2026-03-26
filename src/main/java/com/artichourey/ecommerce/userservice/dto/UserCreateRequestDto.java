@@ -26,11 +26,14 @@ public class UserCreateRequestDto {
 	@NotBlank(message = "Name is required")
 	@Schema(description = "Full name of the user", example = "John Doe", required = true)
     private String name;
-
-    @NotBlank(message = "Phone number is required")
-    @Pattern(regexp = "^\\d{10}$", message = "Invalid phone number - must be exactly 10 digits.")
-    @Schema(description = "Phone number of the user", example = "9876543210", required = true)
-    private String phone;
+	
+	@NotBlank(message = "Phone number is required")
+	@Pattern(
+	    regexp = "^\\+\\d{10,15}$",
+	    message = "Invalid phone number. Must be in format +919876543210"
+	)
+	@Schema(description = "Phone number of the user", example = "+919876543210", required = true)
+	private String phone;
 
     @NotBlank(message = "Email is required")
     @Email(message = "Invalid email format")
@@ -43,7 +46,7 @@ public class UserCreateRequestDto {
     private String password;
     
     @NotNull(message = "Role is required")
-    @Schema(description = "User role", example = "USER_ROLE", required = true)
+    @Schema(description = "User role , Possible values:ROLE_USER,ROLE_ADMIN ", example = "ROLE_USER", required = true)
     private Role role;             
 
 }
