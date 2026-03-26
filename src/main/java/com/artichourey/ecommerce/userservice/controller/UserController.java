@@ -25,64 +25,81 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
-	
-	
-	private UserService userService;
-	
-	public UserController(UserService userService) {
-		this.userService=userService;
-	}
-	@Operation(
-	        summary = "Register a new user",
-	        description = "Creates a new user with name, email, phone, password, and role.",
-	        responses = {
-	            @ApiResponse(responseCode = "201", description = "User created successfully",
-	                content = @Content(mediaType = "application/json",
-	                    schema = @Schema(implementation = UserResponseDto.class))),
-	            @ApiResponse(responseCode = "400", description = "Invalid input",
-	                content = @Content)
-	        }
-	    )
-	@PostMapping("/register")
-	public ResponseEntity<UserResponseDto> register (@Valid @RequestBody UserCreateRequestDto dto){
-		UserResponseDto created=userService.register(dto);
-		return ResponseEntity.status(HttpStatus.CREATED).body(created) ;
-		
-	}
-	@Operation(
-	        summary = "Login a user",
-	        description = "Validates user credentials and returns JWT token.",
-	        responses = {
-	            @ApiResponse(responseCode = "200", description = "Login successful",
-	                content = @Content(mediaType = "application/json",
-	                    schema = @Schema(implementation = LoginResponseDto.class))),
-	            @ApiResponse(responseCode = "401", description = "Invalid credentials",
-	                content = @Content)
-	        }
-	    )
-	@PostMapping("/login")
-	public ResponseEntity<LoginResponseDto> login(@Valid @RequestBody LoginRequestDto dto){
-		LoginResponseDto resp=userService.login(dto);
-		return ResponseEntity.status(HttpStatus.OK).body(resp);
-	}
-	@Operation(
-	        summary = "Get user by ID",
-	        description = "Returns user details for a given user ID. JWT authentication required.",
-	        responses = {
-	            @ApiResponse(responseCode = "200", description = "User found",
-	                content = @Content(mediaType = "application/json",
-	                    schema = @Schema(implementation = UserResponseDto.class))),
-	            @ApiResponse(responseCode = "404", description = "User not found",
-	                content = @Content),
-	            @ApiResponse(responseCode = "401", description = "Unauthorized",
-	                content = @Content)
-	        }
-	    )
-	@GetMapping("/{id}")
-	public ResponseEntity<UserResponseDto> getById(@PathVariable Long id, Authentication authentication){
-		UserResponseDto dto =userService.getById(id);
-		return ResponseEntity.ok(dto);
-		
-	}
 
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @Operation(
+        summary = "Register a new user",
+        description = "Creates a new user with name, email, phone, password, and role.",
+        responses = {
+            @ApiResponse(responseCode = "201", description = "User created successfully",
+                content = @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = UserResponseDto.class))),
+            @ApiResponse(responseCode = "400", description = "Invalid input",
+                content = @Content)
+        }
+    )
+    @PostMapping("/register")
+    public ResponseEntity<UserResponseDto> register (@Valid @RequestBody UserCreateRequestDto dto){
+        UserResponseDto created = userService.register(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
+    }
+
+    @Operation(
+        summary = "Login a user",
+        description = "Validates user credentials and returns JWT token.",
+        responses = {
+            @ApiResponse(responseCode = "200", description = "Login successful",
+                content = @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = LoginResponseDto.class))),
+            @ApiResponse(responseCode = "401", description = "Invalid credentials",
+                content = @Content)
+        }
+    )
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponseDto> login(@Valid @RequestBody LoginRequestDto dto){
+        LoginResponseDto resp = userService.login(dto);
+        return ResponseEntity.status(HttpStatus.OK).body(resp);
+    }
+
+    @Operation(
+        summary = "Get user by ID",
+        description = "Returns user details for a given user ID. JWT authentication required.",
+        responses = {
+            @ApiResponse(responseCode = "200", description = "User found",
+                content = @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = UserResponseDto.class))),
+            @ApiResponse(responseCode = "404", description = "User not found",
+                content = @Content),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",
+                content = @Content)
+        }
+    )
+    @GetMapping("/{id}")
+    public ResponseEntity<UserResponseDto> getById(@PathVariable Long id, Authentication authentication){
+        UserResponseDto dto = userService.getById(id);
+        return ResponseEntity.ok(dto);
+    }
+
+    // ✅ New public endpoint for other services (NotificationService, PaymentService)
+    @Operation(
+        summary = "Get user by ID (public)",
+        description = "Returns basic user details for other services. No authentication required.",
+        responses = {
+            @ApiResponse(responseCode = "200", description = "User found",
+                content = @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = UserResponseDto.class))),
+            @ApiResponse(responseCode = "404", description = "User not found",
+                content = @Content)
+        }
+    )
+    @GetMapping("/public/{id}")
+    public ResponseEntity<UserResponseDto> getByIdPublic(@PathVariable Long id){
+        UserResponseDto dto = userService.getById(id);
+        return ResponseEntity.ok(dto);
+    }
 }
