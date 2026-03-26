@@ -1,5 +1,7 @@
 package com.artichourey.ecommerce.userservice.config;
 
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -8,6 +10,7 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
+import io.swagger.v3.oas.models.servers.Server;
 
 @Configuration
 public class OpenApiConfig {
@@ -16,7 +19,7 @@ public class OpenApiConfig {
     public OpenAPI userServiceAPI() {
 
         SecurityScheme securityScheme = new SecurityScheme()
-                .name("bearerAuth")
+                .name("Authorization") // 🔥 IMPORTANT (not bearerAuth)
                 .type(SecurityScheme.Type.HTTP)
                 .scheme("bearer")
                 .bearerFormat("JWT");
@@ -26,6 +29,9 @@ public class OpenApiConfig {
                         .title("User Service API")
                         .description("User management APIs for E-commerce Platform")
                         .version("1.0"))
+
+                // 🔥 THIS FIXES YOUR MAIN ISSUE (VERY IMPORTANT)
+                .servers(List.of(new Server().url("/")))
 
                 .components(new Components()
                         .addSecuritySchemes("bearerAuth", securityScheme))
