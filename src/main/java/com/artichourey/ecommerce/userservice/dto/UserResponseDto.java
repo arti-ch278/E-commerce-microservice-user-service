@@ -2,7 +2,7 @@ package com.artichourey.ecommerce.userservice.dto;
 
 import java.time.Instant;
 
-
+import com.artichourey.ecommerce.userservice.enums.Role;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,7 +20,7 @@ public class UserResponseDto {
 	private String email;
 	private String phone;
 	
-	private String roles;
+	private Role role;
 	private Instant createdAt;
 	private Instant updatedAt;
 	
