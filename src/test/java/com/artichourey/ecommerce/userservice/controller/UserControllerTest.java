@@ -45,8 +45,7 @@ public class UserControllerTest {
         UserCreateRequestDto request = new UserCreateRequestDto();
         request.setName("jam");
         request.setEmail("jam@test.com");
-        request.setPassword("123");
-        request.setPhone("1234567890");
+        request.setPhone("+911234567890");
         request.setPassword("123456");
         request.setRole(Role.ROLE_USER);
         
@@ -70,7 +69,7 @@ public class UserControllerTest {
     void login_ShouldReturnOk() throws Exception {
         LoginRequestDto request = new LoginRequestDto();
         request.setEmail("jam@test.com");
-        request.setPassword("123");
+        request.setPassword("123456");
 
         LoginResponseDto response = new LoginResponseDto();
 

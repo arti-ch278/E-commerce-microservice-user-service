@@ -61,9 +61,9 @@ public class UserSeriveImplTest {
 	    void setup() {
 	        user = User.builder()
 	                .id(1L)
-	                .name("Jam")
+	                .name("jam")
 	                .email("jam@test.com")
-	                .password("encodedPass")
+	                .password("123456")
 	                .role(Role.ROLE_USER)
 	                .build();
 
@@ -105,7 +105,7 @@ public class UserSeriveImplTest {
 
 	        LoginRequestDto loginDto = new LoginRequestDto();
 	        loginDto.setEmail("jam@test.com");
-	        loginDto.setPassword("123");
+	        loginDto.setPassword("123456");
 
 	        when(userRepository.findByEmail(loginDto.getEmail()))
 	                .thenReturn(Optional.of(user));
