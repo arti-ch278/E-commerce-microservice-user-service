@@ -85,7 +85,7 @@ public class UserController {
         return ResponseEntity.ok(dto);
     }
 
-    // ✅ New public endpoint for other services (NotificationService, PaymentService)
+   
     @Operation(
         summary = "Get user by ID (public)",
         description = "Returns basic user details for other services. No authentication required.",
